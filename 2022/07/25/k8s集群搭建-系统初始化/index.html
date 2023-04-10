@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -16,38 +15,39 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="k8s集群搭建-系统初始化设置主机名1hostnamectl set-hostname master1  修改host文件123456cat &gt;&gt; &#x2F;etc&#x2F;hosts &lt;&lt; EOF192.168.0.11 master1192.168.0.12 master2192.168.0.13 node1192.168.0.14 node2EOF  安装依赖包1yum instal">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="k8s集群搭建-系统初始化节点规划 master：集群的master节点，集群的初始化节点，基础配置不低于2C4G slave：集群的slave节点，可以多台，基础配置不低于2C4G     主机名 节点ip 角色 部署组件    master1 192.168.0.11 master etcd, kube-apiserver, kube-controller-manager, kubectl,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="qianfg的博客">
+<meta property="og:title" content="k8s集群搭建1">
 <meta property="og:url" content="http://example.com/2022/07/25/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/index.html">
 <meta property="og:site_name" content="qianfg的博客">
-<meta property="og:description" content="k8s集群搭建-系统初始化设置主机名1hostnamectl set-hostname master1  修改host文件123456cat &gt;&gt; &#x2F;etc&#x2F;hosts &lt;&lt; EOF192.168.0.11 master1192.168.0.12 master2192.168.0.13 node1192.168.0.14 node2EOF  安装依赖包1yum instal">
+<meta property="og:description" content="k8s集群搭建-系统初始化节点规划 master：集群的master节点，集群的初始化节点，基础配置不低于2C4G slave：集群的slave节点，可以多台，基础配置不低于2C4G     主机名 节点ip 角色 部署组件    master1 192.168.0.11 master etcd, kube-apiserver, kube-controller-manager, kubectl,">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220723234927387.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220724001108422.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220724001511977.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220724001937049.png">
-<meta property="article:published_time" content="2022-07-25T12:38:06.167Z">
-<meta property="article:modified_time" content="2022-07-25T12:38:45.325Z">
+<meta property="article:published_time" content="2022-07-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-25T14:51:57.176Z">
 <meta property="article:author" content="qianfg">
-<meta property="article:tag" content="Java，Linux">
+<meta property="article:tag" content="k8s">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220723234927387.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220724001108422.png">
 
 
 <link rel="canonical" href="http://example.com/2022/07/25/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/07/25/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/","path":"2022/07/25/k8s集群搭建-系统初始化/","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/07/25/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/","path":"2022/07/25/k8s集群搭建-系统初始化/","title":"k8s集群搭建1"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title> | qianfg的博客</title>
+<title>k8s集群搭建1 | qianfg的博客</title>
   
+
 
 
 
@@ -113,7 +113,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">k8s集群搭建-系统初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E5%90%8D"><span class="nav-text">设置主机名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9host%E6%96%87%E4%BB%B6"><span class="nav-text">修改host文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="nav-text">安装依赖包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%98%B2%E7%81%AB%E5%A2%99%E5%B9%B6%E9%85%8D%E7%BD%AE%E8%A7%84%E5%88%99"><span class="nav-text">设置防火墙并配置规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%97%ADselinux"><span class="nav-text">关闭selinux</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%97%ADswap%E5%88%86%E5%8C%BA"><span class="nav-text">关闭swap分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0"><span class="nav-text">调整内核参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%97%B6%E9%97%B4"><span class="nav-text">同步时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E4%B8%8D%E9%9C%80%E8%A6%81%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-text">关闭不需要的服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AErsyslogd%E5%92%8Csystemd-journald"><span class="nav-text">设置rsyslogd和systemd journald</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="nav-text">升级内核版本</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">k8s集群搭建-系统初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E8%A7%84%E5%88%92"><span class="nav-text">节点规划</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E5%90%8D"><span class="nav-text">设置主机名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0hosts%E8%A7%A3%E6%9E%90"><span class="nav-text">添加hosts解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="nav-text">安装依赖包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%98%B2%E7%81%AB%E5%A2%99%E5%B9%B6%E9%85%8D%E7%BD%AE%E8%A7%84%E5%88%99"><span class="nav-text">设置防火墙并配置规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%97%ADselinux"><span class="nav-text">关闭selinux</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%97%ADswap%E5%88%86%E5%8C%BA"><span class="nav-text">关闭swap分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0"><span class="nav-text">调整内核参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%97%B6%E9%97%B4"><span class="nav-text">同步时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E4%B8%8D%E9%9C%80%E8%A6%81%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-text">关闭不需要的服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AErsyslogd%E5%92%8Csystemd-journald"><span class="nav-text">设置rsyslogd和systemd journald</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="nav-text">升级内核版本</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -128,16 +128,16 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -181,15 +181,20 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/35555226?v=4">
       <meta itemprop="name" content="qianfg">
-      <meta itemprop="description" content="qianfg的个人博客，主要是Java学习笔记">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="qianfg的博客">
+      <meta itemprop="description" content="qianfg的个人博客，主要是Java学习笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="k8s集群搭建1 | qianfg的博客">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          k8s集群搭建1
         </h1>
 
         <div class="post-meta-container">
@@ -201,7 +206,16 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2022-07-25 20:38:06 / Modified: 20:38:45" itemprop="dateCreated datePublished" datetime="2022-07-25T20:38:06+08:00">2022-07-25</time>
+      <time title="Created: 2022-07-25 00:00:00 / Modified: 22:51:57" itemprop="dateCreated datePublished" datetime="2022-07-25T00:00:00+08:00">2022-07-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/notes/" itemprop="url" rel="index"><span itemprop="name">notes</span></a>
+        </span>
     </span>
 
   
@@ -214,9 +228,41 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="k8s集群搭建-系统初始化"><a href="#k8s集群搭建-系统初始化" class="headerlink" title="k8s集群搭建-系统初始化"></a>k8s集群搭建-系统初始化</h1><h5 id="设置主机名"><a href="#设置主机名" class="headerlink" title="设置主机名"></a>设置主机名</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname master1</span><br></pre></td></tr></table></figure>
+        <h1 id="k8s集群搭建-系统初始化"><a href="#k8s集群搭建-系统初始化" class="headerlink" title="k8s集群搭建-系统初始化"></a>k8s集群搭建-系统初始化</h1><h5 id="节点规划"><a href="#节点规划" class="headerlink" title="节点规划"></a>节点规划</h5><ul>
+<li><strong>master</strong>：集群的master节点，集群的初始化节点，基础配置不低于2C4G</li>
+<li><strong>slave</strong>：集群的slave节点，可以多台，基础配置不低于2C4G</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">节点ip</th>
+<th align="center">角色</th>
+<th align="center">部署组件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">master1</td>
+<td align="center">192.168.0.11</td>
+<td align="center">master</td>
+<td align="center">etcd, kube-apiserver, kube-controller-manager, kubectl, kubeadm, kubelet, kube-proxy, flannel</td>
+</tr>
+<tr>
+<td align="center">node1</td>
+<td align="center">192.168.0.12</td>
+<td align="center">slave</td>
+<td align="center">kubectl, kubelet, kube-proxy, flannel</td>
+</tr>
+<tr>
+<td align="center">node2</td>
+<td align="center">192.168.0.13</td>
+<td align="center">slave</td>
+<td align="center">kubectl, kubelet, kube-proxy, flannel</td>
+</tr>
+</tbody></table>
+<h5 id="设置主机名"><a href="#设置主机名" class="headerlink" title="设置主机名"></a>设置主机名</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname master1</span><br></pre></td></tr></table></figure>
 
-<h5 id="修改host文件"><a href="#修改host文件" class="headerlink" title="修改host文件"></a>修改host文件</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat &gt;&gt; /etc/hosts &lt;&lt; EOF</span><br><span class="line">192.168.0.11 master1</span><br><span class="line">192.168.0.12 master2</span><br><span class="line">192.168.0.13 node1</span><br><span class="line">192.168.0.14 node2</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h5 id="添加hosts解析"><a href="#添加hosts解析" class="headerlink" title="添加hosts解析"></a>添加hosts解析</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat &gt;&gt; /etc/hosts &lt;&lt; EOF</span><br><span class="line">192.168.0.11 master1</span><br><span class="line">192.168.0.12 node1</span><br><span class="line">192.168.0.13 node2</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
 
 <h5 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y conntrack ntpdate ntp ipvsadm ipset jq iptables curl sysstat libseccomp wget vim net-tools git</span><br></pre></td></tr></table></figure>
 
@@ -225,9 +271,8 @@
 
 <h5 id="关闭selinux"><a href="#关闭selinux" class="headerlink" title="关闭selinux"></a>关闭selinux</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 临时关闭</span></span><br><span class="line">setenforce 0</span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久关闭</span></span><br><span class="line">sed -i &#x27;s/enforcing/disabled/&#x27; /etc/selinux/config</span><br></pre></td></tr></table></figure>
 
-<h5 id="关闭swap分区"><a href="#关闭swap分区" class="headerlink" title="关闭swap分区"></a>关闭swap分区</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 临时关闭</span></span><br><span class="line">swapoff -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久关闭，注释掉swap分区那一行，如图所示</span></span><br><span class="line">vim /etc/fstab</span><br></pre></td></tr></table></figure>
+<h5 id="关闭swap分区"><a href="#关闭swap分区" class="headerlink" title="关闭swap分区"></a>关闭swap分区</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 临时关闭</span></span><br><span class="line">swapoff -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久关闭</span></span><br><span class="line">sed -i &#x27;/ swap / s/^\(.*\)$/#\1/g&#x27; /etc/fstab</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220723234927387.png" alt="image-20220723234927387"></p>
 <h5 id="调整内核参数"><a href="#调整内核参数" class="headerlink" title="调整内核参数"></a>调整内核参数</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; /etc/sysctl.d/kubernetes.conf &lt;&lt; EOF</span><br><span class="line">net.bridge.bridge-nf-call-iptables=1</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables=1</span><br><span class="line">net.ipv4.ip_forward=1</span><br><span class="line">net.ipv4.tcp_tw_recycle=0</span><br><span class="line">vm.swappiness=0 # 禁止使用 swap 空间，只有当系统 OOM 时才允许使用它</span><br><span class="line">vm.overcommit_memory=1 # 不检查物理内存是否够用</span><br><span class="line">vm.panic_on_oom=0 # 开启 OOM </span><br><span class="line">fs.inotify.max_user_instances=8192</span><br><span class="line">fs.inotify.max_user_watches=1048576</span><br><span class="line">fs.file-max=52706963</span><br><span class="line">fs.nr_open=52706963</span><br><span class="line">net.ipv6.conf.all.disable_ipv6=1</span><br><span class="line">net.netfilter.nf_conntrack_max=2310720</span><br><span class="line">EOF</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使配置生效</span></span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
 
 <h5 id="同步时间"><a href="#同步时间" class="headerlink" title="同步时间"></a>同步时间</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start chronyd &amp;&amp; systemctl enable chronyd</span><br></pre></td></tr></table></figure>
@@ -245,6 +290,11 @@
 <p><img src="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220724001511977.png" alt="image-20220724001511977"></p>
 <p>重启后：</p>
 <p><img src="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220724001937049.png" alt="image-20220724001937049"></p>
+<p>到此，master1主机系统初始化完毕！克隆master1主机，作为node1节点和node2节点。</p>
+<p>也就是说，以上设置，对于master1主机、node1节点、node2节点都是完全一样的（除了hostname &amp; ip）。</p>
+<p>设置node节点的主机名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> node1主机名设置</span></span><br><span class="line">hostnamectl set-hostname node1</span><br><span class="line"><span class="meta">#</span><span class="bash"> node2主机名设置</span></span><br><span class="line">hostnamectl set-hostname node2</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -253,16 +303,22 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/01/30/netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Netty学习笔记">
-                  <i class="fa fa-chevron-left"></i> Netty学习笔记
+                <a href="/2022/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/" rel="prev" title="数据结构与算法笔记">
+                  <i class="fa fa-chevron-left"></i> 数据结构与算法笔记
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/07/25/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA-%E9%83%A8%E7%BD%B2kubernetes/" rel="next" title="k8s集群搭建2">
+                  k8s集群搭建2 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -283,7 +339,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -296,7 +352,7 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   

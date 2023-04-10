@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="设置静态IP1.切换到网卡目录cd &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F; 2.修改网卡配置文件可以使用 ifconfig 和 route -n 查看网络信息，然后再配置相应参数 12345678BOOTPROTO&#x3D;static	# 使用静态ip，而不是dhcp自由分配ONBOOT&#x3D;yes			# 开机网络连接IPADDR&#x3D;192.168.0.101	# 设置静态ipNET">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本环境搭建">
+<meta property="og:url" content="http://example.com/2022/03/01/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="qianfg的博客">
+<meta property="og:description" content="设置静态IP1.切换到网卡目录cd &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F; 2.修改网卡配置文件可以使用 ifconfig 和 route -n 查看网络信息，然后再配置相应参数 12345678BOOTPROTO&#x3D;static	# 使用静态ip，而不是dhcp自由分配ONBOOT&#x3D;yes			# 开机网络连接IPADDR&#x3D;192.168.0.101	# 设置静态ipNET">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210517202307168.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210517211528943.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210517211826621.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210517214129306.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210601171101920.png">
+<meta property="article:published_time" content="2022-02-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-25T12:58:26.699Z">
+<meta property="article:author" content="qianfg">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210517202307168.png">
+
+
+<link rel="canonical" href="http://example.com/2022/03/01/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/03/01/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/","path":"2022/03/01/服务器环境部署/","title":"基本环境搭建"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>基本环境搭建 | qianfg的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">qianfg的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP"><span class="nav-text">设置静态IP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%88%87%E6%8D%A2%E5%88%B0%E7%BD%91%E5%8D%A1%E7%9B%AE%E5%BD%95"><span class="nav-text">1.切换到网卡目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">2.修改网卡配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E9%87%8D%E5%90%AF%E7%BD%91%E5%8D%A1"><span class="nav-text">3.重启网卡</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E5%AE%89%E8%A3%85"><span class="nav-text">java安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E8%A7%A3%E5%8E%8Bjava%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-text">1.解压java安装包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">2.配置环境变量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#activemq%E5%AE%89%E8%A3%85"><span class="nav-text">activemq安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E8%A7%A3%E5%8E%8Bactivemq%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-text">1.解压activemq安装包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E8%BF%9B%E5%85%A5%E7%9B%AE%E5%BD%95%EF%BC%8C%E7%84%B6%E5%90%8E%E5%90%AF%E5%8A%A8"><span class="nav-text">2.进入目录，然后启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%BC%80%E6%94%BE%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-text">3.开放防火墙</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8"><span class="nav-text">4.设置开机启动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E5%AE%89%E8%A3%85"><span class="nav-text">redis安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E8%A7%A3%E5%8E%8B%E8%87%B3%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-text">1.解压至安装目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E7%BC%96%E8%AF%91"><span class="nav-text">2.编译</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%90%AF%E5%8A%A8"><span class="nav-text">3.启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">4.修改配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E5%BC%80%E6%94%BE%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-text">5.开放防火墙</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8"><span class="nav-text">6.设置开机启动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo%E5%AE%89%E8%A3%85"><span class="nav-text">mongo安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E8%A7%A3%E5%8E%8B%E8%87%B3%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95-1"><span class="nav-text">1.解压至安装目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E9%87%8D%E5%91%BD%E5%90%8D"><span class="nav-text">2.重命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95%E5%92%8C%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-text">3.创建存储数据目录和日志文件目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%9C%A8bin%E7%9B%AE%E5%BD%95%E5%88%9B%E5%BB%BAmongodb-conf%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">4.在bin目录创建mongodb.conf配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">5.配置环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E5%90%AF%E5%8A%A8mongo"><span class="nav-text">6.启动mongo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-%E5%BC%80%E6%94%BE%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-text">7.开放防火墙</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8"><span class="nav-text">8.设置开机启动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#elasticsearch%E5%AE%89%E8%A3%85"><span class="nav-text">elasticsearch安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E8%A7%A3%E5%8E%8B%E8%87%B3%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95-2"><span class="nav-text">1.解压至安装目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-elasticsearch%E4%B8%8D%E8%83%BD%E4%BB%A5root%E8%BA%AB%E4%BB%BD%E8%BF%90%E8%A1%8C%EF%BC%8C%E6%89%80%E4%BB%A5%E8%BF%99%E9%87%8C%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E8%BA%AB%E4%BB%BDqianfg%E8%BF%90%E8%A1%8C"><span class="nav-text">2.elasticsearch不能以root身份运行，所以这里使用普通身份qianfg运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%BC%80%E6%94%BE%E9%98%B2%E7%81%AB%E5%A2%99-1"><span class="nav-text">3.开放防火墙</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-text">4.运行环境配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">5.配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8-1"><span class="nav-text">6.设置开机启动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E5%AE%89%E8%A3%85"><span class="nav-text">mysql安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%88%A0%E9%99%A4%E5%8E%9F%E6%9C%89mysql%E7%9B%B8%E5%85%B3%E4%BE%9D%E8%B5%96"><span class="nav-text">1.删除原有mysql相关依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E8%A7%A3%E5%8E%8B%E8%87%B3%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-text">2.解压至安装目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%AE%89%E8%A3%85"><span class="nav-text">3.安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E5%8F%8A%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="nav-text">4.配置密码及远程连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E5%BC%80%E6%94%BE%E9%98%B2%E7%81%AB%E5%A2%99-1"><span class="nav-text">5.开放防火墙</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8-2"><span class="nav-text">6.设置开机启动</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qianfg"
+      src="https://avatars.githubusercontent.com/u/35555226?v=4">
+  <p class="site-author-name" itemprop="name">qianfg</p>
+  <div class="site-description" itemprop="description">qianfg的个人博客，主要是Java学习笔记</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/01/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/35555226?v=4">
+      <meta itemprop="name" content="qianfg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qianfg的博客">
+      <meta itemprop="description" content="qianfg的个人博客，主要是Java学习笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="基本环境搭建 | qianfg的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基本环境搭建
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-03-01 00:00:00" itemprop="dateCreated datePublished" datetime="2022-03-01T00:00:00+08:00">2022-03-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-25 20:58:26" itemprop="dateModified" datetime="2022-07-25T20:58:26+08:00">2022-07-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/notes/" itemprop="url" rel="index"><span itemprop="name">notes</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="设置静态IP"><a href="#设置静态IP" class="headerlink" title="设置静态IP"></a>设置静态IP</h3><h5 id="1-切换到网卡目录"><a href="#1-切换到网卡目录" class="headerlink" title="1.切换到网卡目录"></a>1.切换到网卡目录</h5><p><code>cd /etc/sysconfig/network-scripts/</code></p>
+<h5 id="2-修改网卡配置文件"><a href="#2-修改网卡配置文件" class="headerlink" title="2.修改网卡配置文件"></a>2.修改网卡配置文件</h5><p>可以使用 <code>ifconfig</code> 和 <code>route -n</code> 查看网络信息，然后再配置相应参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">BOOTPROTO=static	# 使用静态ip，而不是dhcp自由分配</span><br><span class="line">ONBOOT=yes			# 开机网络连接</span><br><span class="line">IPADDR=192.168.0.101	# 设置静态ip</span><br><span class="line">NETMASK=255.255.255.0	# 子网掩码</span><br><span class="line">GATEWAY=192.168.0.1		# 网关地址</span><br><span class="line"># 配置DNS服务器</span><br><span class="line">DNS1=114.114.114.114</span><br><span class="line">DNS2=8.8.8.8</span><br></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210517202307168.png" alt="image-20210517202307168" style="zoom:100%;" />
+
+<h5 id="3-重启网卡"><a href="#3-重启网卡" class="headerlink" title="3.重启网卡"></a>3.重启网卡</h5><p><code>systemctl restart network</code></p>
+<h3 id="java安装"><a href="#java安装" class="headerlink" title="java安装"></a>java安装</h3><p>软件包统一放在**/home/data/software<strong>目录下，安装在</strong>/home/data**目录下，下面不在赘述</p>
+<h5 id="1-解压java安装包"><a href="#1-解压java安装包" class="headerlink" title="1.解压java安装包"></a>1.解压java安装包</h5><p><code>tar -zxvf jdk-8u281-linux-x64.tar.gz -C ../</code></p>
+<h5 id="2-配置环境变量"><a href="#2-配置环境变量" class="headerlink" title="2.配置环境变量"></a>2.配置环境变量</h5><p><code>vim /etc/profile</code></p>
+<p>在底部添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#JAVA_HOME</span><br><span class="line">export JAVA_HOME=/home/data/jdk1.8.0_281</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JAVA_HOME&#125;/jre/lib</span><br><span class="line">export PATH=$&#123;JAVA_HOME&#125;/bin:$PATH</span><br></pre></td></tr></table></figure>
+
+<p>然后更新</p>
+<p><code>source /etc/profile</code></p>
+<p>校验</p>
+<p><code>java -version</code><br><code>javac -version</code></p>
+<h3 id="activemq安装"><a href="#activemq安装" class="headerlink" title="activemq安装"></a>activemq安装</h3><h5 id="1-解压activemq安装包"><a href="#1-解压activemq安装包" class="headerlink" title="1.解压activemq安装包"></a>1.解压activemq安装包</h5><p><code>tar -zxvf activemq-5.15.2.tar.gz -C ../</code></p>
+<h5 id="2-进入目录，然后启动"><a href="#2-进入目录，然后启动" class="headerlink" title="2.进入目录，然后启动"></a>2.进入目录，然后启动</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/data/activemq-5.15.2</span><br><span class="line">./bin/activemq start</span><br><span class="line">ps -ef | grep activemq</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210517211528943.png" alt="image-20210517211528943"></p>
+<p>启动成功，然后浏览器访问8161端口，发现无法访问，需要开放防火墙端口</p>
+<h5 id="3-开放防火墙"><a href="#3-开放防火墙" class="headerlink" title="3.开放防火墙"></a>3.开放防火墙</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=8161/tcp --permanent</span><br><span class="line">firewall-cmd --zone=public --add-port=61614/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以访问mq的管理界面了！默认用户名和密码都是admin</p>
+<p><img src="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210517211826621.png" alt="image-20210517211826621"></p>
+<h5 id="4-设置开机启动"><a href="#4-设置开机启动" class="headerlink" title="4.设置开机启动"></a>4.设置开机启动</h5><p>编辑启动文件</p>
+<p><code>vim /etc/init.d/activemq</code></p>
+<p>配置内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">#</span><br><span class="line"># /etc/init.d/activemq</span><br><span class="line"># chkconfig: 2345 63 37</span><br><span class="line"># description: activemq servlet container.</span><br><span class="line"># processname: activemq 5.15.2</span><br><span class="line"> </span><br><span class="line"># Source function library.</span><br><span class="line">#. /etc/init.d/functions</span><br><span class="line"># source networking configuration.</span><br><span class="line">#. /etc/sysconfig/network</span><br><span class="line"> </span><br><span class="line">export JAVA_HOME=/home/data/jdk1.8.0_281</span><br><span class="line">export ACTIVEMQ_HOME=/home/data/activemq-5.15.2</span><br><span class="line"> </span><br><span class="line">case $1 in</span><br><span class="line">    start)</span><br><span class="line">        sh $ACTIVEMQ_HOME/bin/activemq start</span><br><span class="line">    ;;</span><br><span class="line">    stop)</span><br><span class="line">        sh $ACTIVEMQ_HOME/bin/activemq stop</span><br><span class="line">    ;;</span><br><span class="line">    restart)</span><br><span class="line">        sh $ACTIVEMQ_HOME/bin/activemq stop</span><br><span class="line">        sleep 1</span><br><span class="line">        sh $ACTIVEMQ_HOME/bin/activemq start</span><br><span class="line">    ;;</span><br><span class="line"> </span><br><span class="line">esac</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p>开机自启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x activemq</span><br><span class="line">chkconfig activemq on</span><br></pre></td></tr></table></figure>
+
+<h3 id="redis安装"><a href="#redis安装" class="headerlink" title="redis安装"></a>redis安装</h3><h5 id="1-解压至安装目录"><a href="#1-解压至安装目录" class="headerlink" title="1.解压至安装目录"></a>1.解压至安装目录</h5><p><code>tar -zxvf redis-4.0.6.tar.gz -C ../</code></p>
+<h5 id="2-编译"><a href="#2-编译" class="headerlink" title="2.编译"></a>2.编译</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/data/redis-4.0.6/src</span><br><span class="line">make # 如果编译报错，先安装gcc编译器，yum -y install gcc</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h5><p><code>./redis-server</code></p>
+<p>如下，启动成功</p>
+<p><img src="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210517214129306.png" alt="image-20210517214129306"></p>
+<h5 id="4-修改配置文件"><a href="#4-修改配置文件" class="headerlink" title="4.修改配置文件"></a>4.修改配置文件</h5><p><code>vim /home/data/redis-4.0.6/redis.conf</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1、更改默认端口</span><br><span class="line"></span><br><span class="line">由port 6379 改为 你自己定义的端口</span><br><span class="line"></span><br><span class="line">2、以后台进程方式启动</span><br><span class="line"></span><br><span class="line">修改daemonize no 为daemonize yes</span><br><span class="line"></span><br><span class="line">3、设置redis远程连接</span><br><span class="line"></span><br><span class="line">（1）先放行你设置的端口号</span><br><span class="line"></span><br><span class="line">（2）注释掉bind 127.0.0.1</span><br><span class="line"></span><br><span class="line">（3）设置redis连接密码：在requirepass foobard改为requirepass 888888</span><br><span class="line"></span><br><span class="line">	888888为设置的密码</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-开放防火墙"><a href="#5-开放防火墙" class="headerlink" title="5.开放防火墙"></a>5.开放防火墙</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=6379/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-设置开机启动"><a href="#6-设置开机启动" class="headerlink" title="6.设置开机启动"></a>6.设置开机启动</h5><p><code>vim /etc/init.d/redisd</code></p>
+<p>启动文件内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">#</span><br><span class="line"># Simple Redis init.d script conceived to work on Linux systems</span><br><span class="line"># as it does use of the /proc filesystem.</span><br><span class="line"># chkconfig:   2345 90 10</span><br><span class="line"># description:  Redis is a persistent key-value database</span><br><span class="line"></span><br><span class="line">REDISPORT=6379</span><br><span class="line">EXEC=/usr/local/bin/redis-server</span><br><span class="line">CLIEXEC=/usr/local/bin/redis-cli</span><br><span class="line"></span><br><span class="line">PIDFILE=/var/run/redis_$&#123;REDISPORT&#125;.pid</span><br><span class="line">CONF=&quot;/home/data/redis-4.0.6/redis.conf&quot;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">    start)</span><br><span class="line">        if [ -f $PIDFILE ]</span><br><span class="line">        then</span><br><span class="line">                echo &quot;$PIDFILE exists, process is already running or crashed&quot;</span><br><span class="line">        else</span><br><span class="line">                echo &quot;Starting Redis server...&quot;</span><br><span class="line">                $EXEC $CONF</span><br><span class="line">        fi</span><br><span class="line">        ;;</span><br><span class="line">    stop)</span><br><span class="line">        if [ ! -f $PIDFILE ]</span><br><span class="line">        then</span><br><span class="line">                echo &quot;$PIDFILE does not exist, process is not running&quot;</span><br><span class="line">        else</span><br><span class="line">                PID=$(cat $PIDFILE)</span><br><span class="line">                echo &quot;Stopping ...&quot;</span><br><span class="line">                $CLIEXEC -p $REDISPORT shutdown</span><br><span class="line">                while [ -x /proc/$&#123;PID&#125; ]</span><br><span class="line">                do</span><br><span class="line">                    echo &quot;Waiting for Redis to shutdown ...&quot;</span><br><span class="line">                    sleep 1</span><br><span class="line">                done</span><br><span class="line">                echo &quot;Redis stopped&quot;</span><br><span class="line">        fi</span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        echo &quot;Please use start or stop as first argument&quot;</span><br><span class="line">        ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<p>注册服务，开机启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x redisd</span><br><span class="line">chkconfig redisd on</span><br></pre></td></tr></table></figure>
+
+<h3 id="mongo安装"><a href="#mongo安装" class="headerlink" title="mongo安装"></a>mongo安装</h3><h5 id="1-解压至安装目录-1"><a href="#1-解压至安装目录-1" class="headerlink" title="1.解压至安装目录"></a>1.解压至安装目录</h5><p><code>tar -zxvf mongodb-linux-x86_64-rhel70-4.0.10.tgz -C ../</code></p>
+<h5 id="2-重命名"><a href="#2-重命名" class="headerlink" title="2.重命名"></a>2.重命名</h5><p><code>mv mongodb-linux-x86_64-rhel70-4.0.10 mongodb-4.0.10</code></p>
+<h5 id="3-创建存储数据目录和日志文件目录"><a href="#3-创建存储数据目录和日志文件目录" class="headerlink" title="3.创建存储数据目录和日志文件目录"></a>3.创建存储数据目录和日志文件目录</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/data/mongodb-4.0.10/data/db</span><br><span class="line">mkdir -p /home/data/mongodb-4.0.10/logs</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-在bin目录创建mongodb-conf配置文件"><a href="#4-在bin目录创建mongodb-conf配置文件" class="headerlink" title="4.在bin目录创建mongodb.conf配置文件"></a>4.在bin目录创建mongodb.conf配置文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/data/mongodb-4.0.10/conf</span><br><span class="line">vim /home/data/mongodb-4.0.10/conf/mongodb.conf</span><br></pre></td></tr></table></figure>
+
+<p>配置文件内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dbpath=/home/data/mongodb-4.0.10/data/db</span><br><span class="line">logpath=/home/data/mongodb-4.0.10/log</span><br><span class="line">fork=true</span><br><span class="line">auth=true</span><br><span class="line">bind_ip=0.0.0.0</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-配置环境变量"><a href="#5-配置环境变量" class="headerlink" title="5.配置环境变量"></a>5.配置环境变量</h5><p><code>vim /etc/profile</code></p>
+<p>文件末尾添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#MONGODB</span><br><span class="line">export MONGODB_HOME=/home/data/mongodb-4.0.10</span><br><span class="line">export PATH=$&#123;PATH&#125;:$&#123;MONGODB_HOME&#125;/bin</span><br></pre></td></tr></table></figure>
+
+<p>然后更新文件</p>
+<p><code>source /etc/profile</code></p>
+<h5 id="6-启动mongo"><a href="#6-启动mongo" class="headerlink" title="6.启动mongo"></a>6.启动mongo</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /home/data/mongodb-4.0.10/bin</span><br><span class="line">mongod -f ../conf/mongodb.conf</span><br></pre></td></tr></table></figure>
+
+<h5 id="7-开放防火墙"><a href="#7-开放防火墙" class="headerlink" title="7.开放防火墙"></a>7.开放防火墙</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=27017/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<h5 id="8-设置开机启动"><a href="#8-设置开机启动" class="headerlink" title="8.设置开机启动"></a>8.设置开机启动</h5><p><code>vim /etc/init.d/mongod</code></p>
+<p>启动文件内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh  </span><br><span class="line"># chkconfig: 2350 90 10</span><br><span class="line"></span><br><span class="line">#MogoDB home directory  </span><br><span class="line">MONGODB_HOME=/home/data/mongodb-4.0.10</span><br><span class="line"></span><br><span class="line">#mongodb command  </span><br><span class="line">MONGODB_BIN=$MONGODB_HOME/bin/mongod</span><br><span class="line"></span><br><span class="line">#mongodb config file</span><br><span class="line">MONGODB_CONF=$MONGODB_HOME/conf/mongodb.conf</span><br><span class="line"></span><br><span class="line">#mongodb PID</span><br><span class="line">MONGODB_PID=/var/run/mongo.pid</span><br><span class="line"></span><br><span class="line">#set open file limit</span><br><span class="line">SYSTEM_MAXFD=65535</span><br><span class="line"></span><br><span class="line">MONGODB_NAME=&quot;mongodb&quot;</span><br><span class="line">. /etc/rc.d/init.d/functions</span><br><span class="line"></span><br><span class="line">if [ ! -f $MONGODB_BIN ]</span><br><span class="line">then</span><br><span class="line">                echo &quot;$MONGODB_NAME startup: $MONGODB_BIN not exists! &quot;  </span><br><span class="line">                exit</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">         ulimit -HSn $SYSTEM_MAXFD</span><br><span class="line">         $MONGODB_BIN --config=&quot;$MONGODB_CONF&quot;  --fork ##added </span><br><span class="line">         ret=$?</span><br><span class="line">         if [ $ret -eq 0 ]; then</span><br><span class="line">                action $&quot;Starting $MONGODB_NAME: &quot; /bin/true</span><br><span class="line">         else</span><br><span class="line">                action $&quot;Starting $MONGODB_NAME: &quot; /bin/false</span><br><span class="line">         fi</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">                PID=$(ps aux |grep &quot;$MONGODB_NAME&quot; |grep &quot;$MONGODB_CONF&quot; |grep -v grep |wc -l)</span><br><span class="line">                if [[ $PID -eq 0  ]];then</span><br><span class="line">                action $&quot;Stopping $MONGODB_NAME: &quot; /bin/false</span><br><span class="line">                exit</span><br><span class="line">                fi</span><br><span class="line">                kill -HUP `cat $MONGODB_PID`</span><br><span class="line">                ret=$?</span><br><span class="line">                if [ $ret -eq 0 ]; then</span><br><span class="line">                                action $&quot;Stopping $MONGODB_NAME: &quot; /bin/true</span><br><span class="line">                                rm -f $MONGODB_PID</span><br><span class="line">                else</span><br><span class="line">                                action $&quot;Stopping $MONGODB_NAME: &quot; /bin/false</span><br><span class="line">                fi</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">restart() &#123;</span><br><span class="line"></span><br><span class="line">                stop</span><br><span class="line">                sleep 2</span><br><span class="line">                start</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">                start)</span><br><span class="line">                                start</span><br><span class="line">                                ;;</span><br><span class="line">                stop)</span><br><span class="line">                                stop</span><br><span class="line">                                ;;</span><br><span class="line">                status)</span><br><span class="line">                status $prog</span><br><span class="line">                                ;;</span><br><span class="line">                restart)</span><br><span class="line">                                restart</span><br><span class="line">                                ;;</span><br><span class="line">                *)</span><br><span class="line">                                echo $&quot;Usage: $0 &#123;start|stop|status|restart&#125;&quot;</span><br><span class="line">esac                                                                                                   </span><br></pre></td></tr></table></figure>
+
+<p>注册服务，开机启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x mongod</span><br><span class="line">chkconfig mongod on</span><br></pre></td></tr></table></figure>
+
+<p>9.添加角色</p>
+<p><img src="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20210601171101920.png" alt="image-20210601171101920"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 添加用户权限</span><br><span class="line">use admin </span><br><span class="line"></span><br><span class="line">db.system.users.find()</span><br><span class="line"></span><br><span class="line">db.system.users.remove(&#123;&#125;)</span><br><span class="line"></span><br><span class="line">db.createUser(&#123;user:&#x27;sa&#x27;,pwd:&#x27;sa&#x27;,&quot;roles&quot; : [ &#123; &quot;role&quot; : &quot;readWriteAnyDatabase&quot;, &quot;db&quot; : &quot;admin&quot; &#125; ]&#125;)</span><br><span class="line"></span><br><span class="line">use npps-re</span><br><span class="line"></span><br><span class="line">db.createUser(&#123;user:&#x27;sa&#x27;,pwd:&#x27;sa&#x27;,&quot;roles&quot; : [ &#123; &quot;role&quot; : &quot;readWrite&quot;, &quot;db&quot; : &quot;npps-re&quot; &#125; ]&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="elasticsearch安装"><a href="#elasticsearch安装" class="headerlink" title="elasticsearch安装"></a>elasticsearch安装</h3><h5 id="1-解压至安装目录-2"><a href="#1-解压至安装目录-2" class="headerlink" title="1.解压至安装目录"></a>1.解压至安装目录</h5><p><code>unzip elasticsearch-6.4.3.zip -d ../</code></p>
+<h5 id="2-elasticsearch不能以root身份运行，所以这里使用普通身份qianfg运行"><a href="#2-elasticsearch不能以root身份运行，所以这里使用普通身份qianfg运行" class="headerlink" title="2.elasticsearch不能以root身份运行，所以这里使用普通身份qianfg运行"></a>2.elasticsearch不能以root身份运行，所以这里使用普通身份qianfg运行</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /home/data</span><br><span class="line">chown -R qianfg:qianfg elasticsearch-6.4.3</span><br><span class="line">su qianfg</span><br><span class="line">cd elasticsearch-6.4.3</span><br><span class="line">./bin/elasticsearch</span><br></pre></td></tr></table></figure>
+
+<p>9200端口无法访问，需要开放端口</p>
+<h5 id="3-开放防火墙-1"><a href="#3-开放防火墙-1" class="headerlink" title="3.开放防火墙"></a>3.开放防火墙</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=9200/tcp --permanent</span><br><span class="line">firewall-cmd --zone=public --add-port=9300/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-运行环境配置"><a href="#4-运行环境配置" class="headerlink" title="4.运行环境配置"></a>4.运行环境配置</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">修改系统参数</span><br><span class="line"></span><br><span class="line">修改系统参数的目的是确保系统有足够的资源启动Elasticsearch。</span><br><span class="line"></span><br><span class="line">a)设置内核参数</span><br><span class="line"></span><br><span class="line"># vi /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"> 增加以下参数</span><br><span class="line"></span><br><span class="line">vm.max_map_count=655360</span><br><span class="line"></span><br><span class="line">b)执行以下命令确保配置生效。</span><br><span class="line"></span><br><span class="line"># sysctl -p</span><br><span class="line"></span><br><span class="line">c)设置资源参数</span><br><span class="line"></span><br><span class="line"># vi /etc/security/limits.conf</span><br><span class="line"></span><br><span class="line"># 修改如下</span><br><span class="line"></span><br><span class="line">* soft nofile 65536</span><br><span class="line"></span><br><span class="line">* hard nofile 131072</span><br><span class="line"></span><br><span class="line">* soft nproc 65536</span><br><span class="line"></span><br><span class="line">* hard nproc 131072</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-配置文件"><a href="#5-配置文件" class="headerlink" title="5.配置文件"></a>5.配置文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cluster.name: npps</span><br><span class="line">node.name: npps-node-1</span><br><span class="line">network.host: 172.16.50.38</span><br><span class="line">http.port: 9200</span><br><span class="line">transport.tcp.port: 9300</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;172.16.50.38&quot;, &quot;127.0.0.1&quot;, &quot;[::1]&quot;]</span><br><span class="line">bootstrap.system_call_filter: false</span><br><span class="line"></span><br><span class="line"># allow origin</span><br><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br><span class="line">node.master: true</span><br><span class="line">node.data: true</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-设置开机启动-1"><a href="#6-设置开机启动-1" class="headerlink" title="6.设置开机启动"></a>6.设置开机启动</h5><p><code>vim /etc/init.d/elasticsearchd</code></p>
+<p>启动文件内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">#</span><br><span class="line"># Simple Redis init.d script conceived to work on Linux systems</span><br><span class="line"># as it does use of the /proc filesystem.</span><br><span class="line"># chkconfig:   2345 90 10</span><br><span class="line">export ES_HOME=/home/data/elasticsearch-6.4.3/</span><br><span class="line">su - qianfg -c &quot;nohup /home/data/elasticsearch-6.4.3/bin/elasticsearch &amp;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>注册服务，开机启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x elasticsearchd</span><br><span class="line">chkconfig elasticsearchd on</span><br></pre></td></tr></table></figure>
+
+<h3 id="mysql安装"><a href="#mysql安装" class="headerlink" title="mysql安装"></a>mysql安装</h3><h5 id="1-删除原有mysql相关依赖"><a href="#1-删除原有mysql相关依赖" class="headerlink" title="1.删除原有mysql相关依赖"></a>1.删除原有mysql相关依赖</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -e --nodeps `rpm -qa | grep mariadb`</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-解压至安装目录"><a href="#2-解压至安装目录" class="headerlink" title="2.解压至安装目录"></a>2.解压至安装目录</h5><p><code>tar -xvf mysql-5.7.33-1.el7.x86_64.rpm-bundle.tar -C ../ </code> </p>
+<h5 id="3-安装"><a href="#3-安装" class="headerlink" title="3.安装"></a>3.安装</h5><p>彼此间有依赖关系，需要按顺序安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql-community-common-5.7.33-1.el7.x86_64.rpm </span><br><span class="line">rpm -ivh mysql-community-libs-5.7.33-1.el7.x86_64.rpm </span><br><span class="line">rpm -ivh mysql-community-client-5.7.33-1.el7.x86_64.rpm </span><br><span class="line">rpm -ivh mysql-community-server-5.7.33-1.el7.x86_64.rpm </span><br><span class="line">rpm -ivh mysql-community-devel-5.7.33-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-配置密码及远程连接"><a href="#4-配置密码及远程连接" class="headerlink" title="4.配置密码及远程连接"></a>4.配置密码及远程连接</h5><p>先修改配置文件，跳过密码</p>
+<p><code>vim /etc/my.cnf</code></p>
+<p>在里面添加一行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip-grant-tables=1</span><br></pre></td></tr></table></figure>
+
+<p>然后启动</p>
+<p><code>systemctl start mysqld</code></p>
+<p>进入命令行</p>
+<p><code>mysql -u root</code></p>
+<p>修改密码，以及允许远程连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 允许使用弱密码(这里暂且设置为888888)，mysql默认密码规则必须包含特殊字符、大写字母、小写字母、数字、一定长度</span><br><span class="line">mysql&gt; set global validate_password_policy=0;</span><br><span class="line">mysql&gt; set global validate_password_length=1;</span><br><span class="line">mysql&gt; use mysql;</span><br><span class="line">mysql&gt; update user set host = &#x27;%&#x27;,authentication_string=password(&#x27;888888&#x27;) where user = &#x27;root&#x27;;</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;888888&#x27; WITH GRANT OPTION;</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">mysql&gt; exit;</span><br></pre></td></tr></table></figure>
+
+<p>然后在进入/etc/my.cnf,注释掉刚才添加的跳过密码 <code>skip-grant-tables=1</code></p>
+<p>重启mysql</p>
+<p><code>systemctl restart mysqld</code></p>
+<h5 id="5-开放防火墙-1"><a href="#5-开放防火墙-1" class="headerlink" title="5.开放防火墙"></a>5.开放防火墙</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=3306/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-设置开机启动-2"><a href="#6-设置开机启动-2" class="headerlink" title="6.设置开机启动"></a>6.设置开机启动</h5><p><code>systemctl enable mysqld</code></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/01/MySQL%E7%AC%94%E8%AE%B0/" rel="prev" title="MySQL笔记">
+                  <i class="fa fa-chevron-left"></i> MySQL笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/04/01/JVM%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E9%AD%94/" rel="next" title="JVM笔记">
+                  JVM笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qianfg</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
