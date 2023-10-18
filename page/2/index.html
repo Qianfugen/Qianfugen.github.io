@@ -20,97 +20,26 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qianfugen.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Netty学习笔记Chapter1-异步和事件驱动1.什么是Netty?Java网络编程提供的原生API复杂难用，而Netty将这些复杂难用的API接口优化封装，提供给我们简单易用的API接口。一句话，用较简单的抽象隐藏底层实现的复杂性。 Java原生API示例  是阻塞的，一个连接创建一个线程，效率低，最主要的是线程多了，上下文切换的开销很大  Netty使用了Java NIO，避免了以上问题">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Netty笔记">
-<meta property="og:url" content="https://qianfugen.github.io/2022/01/01/netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+    <meta name="description" content="qianfg的个人博客，主要是Java学习笔记">
+<meta property="og:type" content="website">
+<meta property="og:title" content="qianfg的博客">
+<meta property="og:url" content="https://qianfugen.github.io/page/2/index.html">
 <meta property="og:site_name" content="qianfg的博客">
-<meta property="og:description" content="Netty学习笔记Chapter1-异步和事件驱动1.什么是Netty?Java网络编程提供的原生API复杂难用，而Netty将这些复杂难用的API接口优化封装，提供给我们简单易用的API接口。一句话，用较简单的抽象隐藏底层实现的复杂性。 Java原生API示例  是阻塞的，一个连接创建一个线程，效率低，最主要的是线程多了，上下文切换的开销很大  Netty使用了Java NIO，避免了以上问题">
+<meta property="og:description" content="qianfg的个人博客，主要是Java学习笔记">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201028233349787.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201028233502910.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201028233638169.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201028232710848.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201104003246013.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201108235943161.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201109002159692.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201109005048076.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201109005829286.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201109010157044.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201110224333245.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201110224243277.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201110225221714.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201110232926060.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201110234209901.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201110235156473.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201110235809946.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201110235856288.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201111002226346.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201201232811821.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201201234151148.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201201234932610.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201201235053015.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201201235427423.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201201235924039.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202000624487.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202000916383.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202000927680.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202001703544.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202002656706.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202002943685.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202003513031.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202003702455.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202003814551.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202003839878.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202004333182.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202004731378.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202004850235.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201202005412596.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201203234056579.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201203235842546.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201204004332540.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205191812446.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205195916893.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205202618498.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205202826258.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205204230623.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205211537126.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205214844754.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205215008778.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205215228539.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205215928052.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205215842844.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205221959288.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205230338069.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201205230101135.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220104203014131.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220104203739603.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220104205902131.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220104211050089.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220110202427957.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220110203343888.png">
-<meta property="og:image" content="https://qianfugen.github.io/2022/01/01/netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/img/image-20220110203103764.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220110203115724.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220110203638620.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220110203746456.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220111235435043.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20220111235804630.png">
-<meta property="article:published_time" content="2021-12-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-18T02:09:56.610Z">
 <meta property="article:author" content="qianfg">
-<meta property="article:tag" content="Netty">
+<meta property="article:tag" content="Java，Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201028233349787.png">
 
 
-<link rel="canonical" href="https://qianfugen.github.io/2022/01/01/netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+<link rel="canonical" href="https://qianfugen.github.io/page/2/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://qianfugen.github.io/2022/01/01/netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2022/01/01/netty学习笔记/","title":"Netty笔记"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"en","comments":"","permalink":"","path":"page/2/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Netty笔记 | qianfg的博客</title>
+<title>qianfg的博客</title>
   
 
 
@@ -137,7 +66,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">qianfg的博客</p>
+      <h1 class="site-title">qianfg的博客</h1>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -165,7 +94,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -178,7 +107,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-text">Netty学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Chapter1-%E5%BC%82%E6%AD%A5%E5%92%8C%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-text">Chapter1-异步和事件驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFNetty"><span class="nav-text">1.什么是Netty?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Netty%E4%BC%98%E7%82%B9"><span class="nav-text">2.Netty优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%BC%82%E6%AD%A5%E5%92%8C%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-text">3.异步和事件驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Netty%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-text">4.Netty核心组件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chapter2-%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%BENetty%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-text">Chapter2-你的第一款Netty应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Netty%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="nav-text">1.Netty客户端和服务端示意图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%BC%96%E5%86%99Echo%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">2.编写Echo服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-ChannelHandler%E5%92%8C%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91"><span class="nav-text">2.1 ChannelHandler和业务逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-%E5%BC%95%E5%AF%BC%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">2.2 引导服务器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%BC%96%E5%86%99Echo%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-text">3. 编写Echo客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-ChannelHandler%E5%92%8C%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91"><span class="nav-text">3.1 ChannelHandler和业务逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-%E5%BC%95%E5%AF%BC%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-text">3.2 引导客户端</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chapter3-Netty%E7%9A%84%E7%BB%84%E4%BB%B6%E5%92%8C%E8%AE%BE%E8%AE%A1"><span class="nav-text">Chapter3-Netty的组件和设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Channel%E6%8E%A5%E5%8F%A3"><span class="nav-text">1. Channel接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-EventLoop"><span class="nav-text">2. EventLoop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-ChannelFuture%E6%8E%A5%E5%8F%A3"><span class="nav-text">3. ChannelFuture接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-ChannelHandler%E6%8E%A5%E5%8F%A3"><span class="nav-text">4. ChannelHandler接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-ChannelPipeline%E6%8E%A5%E5%8F%A3"><span class="nav-text">5. ChannelPipeline接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%BC%95%E5%AF%BC"><span class="nav-text">6. 引导</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chapter4-%E4%BC%A0%E8%BE%93"><span class="nav-text">Chapter4-传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BC%A0%E8%BE%93%E8%BF%81%E7%A7%BB"><span class="nav-text">1. 传输迁移</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-%E6%9C%AA%E4%BD%BF%E7%94%A8netty%E7%9A%84OIO%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B"><span class="nav-text">1.1 未使用netty的OIO网络编程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-%E6%9C%AA%E4%BD%BF%E7%94%A8netty%E7%9A%84NIO%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B"><span class="nav-text">1.2 未使用netty的NIO网络编程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-%E4%BD%BF%E7%94%A8netty%E7%9A%84OIO%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B"><span class="nav-text">1.3 使用netty的OIO网络编程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-%E4%BD%BF%E7%94%A8netty%E7%9A%84NIO%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B"><span class="nav-text">1.4 使用netty的NIO网络编程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BC%A0%E8%BE%93API"><span class="nav-text">2. 传输API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%86%85%E7%BD%AE%E7%9A%84%E4%BC%A0%E8%BE%93"><span class="nav-text">3. 内置的传输</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-NIO-%E9%9D%9E%E9%98%BB%E5%A1%9EI-O"><span class="nav-text">3.1 NIO-非阻塞I&#x2F;O</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-Epoll-%E2%80%94-%E7%94%A8%E4%BA%8E-Linux-%E7%9A%84%E6%9C%AC%E5%9C%B0%E9%9D%9E%E9%98%BB%E5%A1%9E%E4%BC%A0%E8%BE%93"><span class="nav-text">3.2 Epoll — 用于 Linux 的本地非阻塞传输</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-OIO-%E2%80%94-%E6%97%A7%E7%9A%84%E9%98%BB%E5%A1%9E-I-O"><span class="nav-text">3.3 OIO — 旧的阻塞 I&#x2F;O</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E4%BC%A0%E8%BE%93%E7%9A%84%E7%94%A8%E4%BE%8B"><span class="nav-text">4. 传输的用例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chapter5-ByteBuf"><span class="nav-text">Chapter5-ByteBuf</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ByteBuf-API%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-text">1. ByteBuf API的优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ByteBuf%E7%B1%BB-Netty%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%B9%E5%99%A8"><span class="nav-text">2.ByteBuf类-Netty的数据容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AD%97%E8%8A%82%E7%BA%A7%E6%93%8D%E4%BD%9C"><span class="nav-text">3.字节级操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-ByteBufHolder-%E6%8E%A5%E5%8F%A3"><span class="nav-text">4.ByteBufHolder 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-ByteBuf-%E5%88%86%E9%85%8D"><span class="nav-text">5.ByteBuf 分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="nav-text">6.引用计数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chapter6-ChannelHandler-amp-ChannelPipeline"><span class="nav-text">Chapter6-ChannelHandler&amp;ChannelPipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ChannelHandler%E6%8E%A5%E5%8F%A3"><span class="nav-text">1. ChannelHandler接口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-Channel%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">1.1. Channel的生命周期</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-ChannelHandler%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">1.2. ChannelHandler的生命周期</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-ChannelInboundHandler%E6%8E%A5%E5%8F%A3"><span class="nav-text">1.3.ChannelInboundHandler接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-ChannelOutboundHandler%E6%8E%A5%E5%8F%A3"><span class="nav-text">1.4. ChannelOutboundHandler接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-ChannelHandler%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-text">1.5 ChannelHandler适配器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ChannelPipeline%E6%8E%A5%E5%8F%A3"><span class="nav-text">2. ChannelPipeline接口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-%E4%BF%AE%E6%94%B9ChannelPipeline"><span class="nav-text">2.1 修改ChannelPipeline</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-%E8%A7%A6%E5%8F%91%E4%BA%8B%E4%BB%B6"><span class="nav-text">2.2 触发事件</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link"><span class="nav-text"></span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-ChannelHandlerContext%E6%8E%A5%E5%8F%A3"><span class="nav-text">3. ChannelHandlerContext接口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-%E4%BD%BF%E7%94%A8ChannelHandlerContext"><span class="nav-text">3.1 使用ChannelHandlerContext</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-text">4. 异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%A4%84%E7%90%86%E5%85%A5%E7%AB%99%E5%BC%82%E5%B8%B8"><span class="nav-text">1. 处理入站异常</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%A4%84%E7%90%86%E5%87%BA%E7%AB%99%E5%BC%82%E5%B8%B8"><span class="nav-text">2. 处理出站异常</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chapter7-EventLoop%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">Chapter7-EventLoop和线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Executor%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">1.Executor线程模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-EventLoop%E6%8E%A5%E5%8F%A3"><span class="nav-text">2.EventLoop接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-FIFO"><span class="nav-text">3.FIFO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="nav-text">4.任务调度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1JDK%E7%9A%84API"><span class="nav-text">4.1JDK的API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2EventLoop"><span class="nav-text">4.2EventLoop</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82"><span class="nav-text">5.实现细节</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">5.1线程管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2EventLoop%E7%BA%BF%E7%A8%8B%E5%88%86%E9%85%8D"><span class="nav-text">5.2EventLoop线程分配</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chapter8-%E5%BC%95%E5%AF%BC"><span class="nav-text">Chapter8-引导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1Bootstrap-%E5%BC%95%E5%AF%BC%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-text">8.1Bootstrap-引导客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2ServerBootstrap-%E5%BC%95%E5%AF%BC%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">8.2ServerBootstrap-引导服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3ChannelOption-amp-Attr"><span class="nav-text">8.3ChannelOption&amp;Attr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-4%E5%BC%95%E5%AF%BCDatagramChannel"><span class="nav-text">8.4引导DatagramChannel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chapter9-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-text">Chapter9-单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-1EmbeddedChannel"><span class="nav-text">9.1EmbeddedChannel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-2%E6%B5%8B%E8%AF%95%E5%85%A5%E7%AB%99%E6%B6%88%E6%81%AF"><span class="nav-text">9.2测试入站消息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-3%E6%B5%8B%E8%AF%95%E5%87%BA%E7%AB%99%E6%B6%88%E6%81%AF"><span class="nav-text">9.3测试出站消息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-4%E6%B5%8B%E8%AF%95%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-text">9.4测试异常处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chapter10-%E7%BC%96%E8%A7%A3%E7%A0%81%E5%99%A8"><span class="nav-text">Chapter10-编解码器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A6%82%E5%BF%B5"><span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%A7%A3%E7%A0%81%E5%99%A8"><span class="nav-text">2.解码器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1ByteToMessageDecoder"><span class="nav-text">2.1ByteToMessageDecoder</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2ReplayingDecoder"><span class="nav-text">2.2ReplayingDecoder</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3MessageToMessageDecoder"><span class="nav-text">2.3MessageToMessageDecoder</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4%E5%85%B6%E4%BB%96"><span class="nav-text">2.4其他</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%BC%96%E7%A0%81%E5%99%A8"><span class="nav-text">3.编码器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1MessageToByteEncoder"><span class="nav-text">3.1MessageToByteEncoder</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2MessageToMessageEncoder"><span class="nav-text">3.2MessageToMessageEncoder</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3%E5%85%B6%E4%BB%96"><span class="nav-text">3.3其他</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%BC%96%E8%A7%A3%E7%A0%81%E5%99%A8"><span class="nav-text">4.编解码器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1%E6%8A%BD%E8%B1%A1%E7%B1%BB-ByteToMessageCodec"><span class="nav-text">4.1抽象类 ByteToMessageCodec</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2%E6%8A%BD%E8%B1%A1%E7%B1%BB-MessageToMessageCodec"><span class="nav-text">4.2抽象类 MessageToMessageCodec</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3CombinedChannelDuplexHandler-%E7%B1%BB"><span class="nav-text">4.3CombinedChannelDuplexHandler 类</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -232,17 +160,16 @@
 </noscript>
 
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner index posts-expand">
 
-
-  
+    
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://qianfugen.github.io/2022/01/01/netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -256,13 +183,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Netty笔记 | qianfg的博客">
+      <meta itemprop="name" content="undefined | qianfg的博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Netty笔记
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/01/netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Netty笔记</a>
+        </h2>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -301,7 +228,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Netty学习笔记"><a href="#Netty学习笔记" class="headerlink" title="Netty学习笔记"></a>Netty学习笔记</h1><h3 id="Chapter1-异步和事件驱动"><a href="#Chapter1-异步和事件驱动" class="headerlink" title="Chapter1-异步和事件驱动"></a>Chapter1-异步和事件驱动</h3><h4 id="1-什么是Netty"><a href="#1-什么是Netty" class="headerlink" title="1.什么是Netty?"></a>1.什么是Netty?</h4><p>Java网络编程提供的原生API复杂难用，而Netty将这些复杂难用的API接口优化封装，提供给我们简单易用的API接口。一句话，用较简单的抽象隐藏底层实现的复杂性。</p>
+          <h1 id="Netty学习笔记"><a href="#Netty学习笔记" class="headerlink" title="Netty学习笔记"></a>Netty学习笔记</h1><h3 id="Chapter1-异步和事件驱动"><a href="#Chapter1-异步和事件驱动" class="headerlink" title="Chapter1-异步和事件驱动"></a>Chapter1-异步和事件驱动</h3><h4 id="1-什么是Netty"><a href="#1-什么是Netty" class="headerlink" title="1.什么是Netty?"></a>1.什么是Netty?</h4><p>Java网络编程提供的原生API复杂难用，而Netty将这些复杂难用的API接口优化封装，提供给我们简单易用的API接口。一句话，用较简单的抽象隐藏底层实现的复杂性。</p>
 <p>Java原生API示例</p>
 <p><img src="https://raw.githubusercontent.com/Qianfugen/blog-img/main/image-20201028233349787.png" alt="image-20201028233349787"></p>
 <p>是阻塞的，一个连接创建一个线程，效率低，最主要的是线程多了，上下文切换的开销很大</p>
@@ -961,6 +888,7 @@
 <h5 id="4-3CombinedChannelDuplexHandler-类"><a href="#4-3CombinedChannelDuplexHandler-类" class="headerlink" title="4.3CombinedChannelDuplexHandler 类"></a>4.3CombinedChannelDuplexHandler 类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CombineByteCharCodec</span> <span class="keyword">extends</span> <span class="title">CombinedChannelDuplexHandler</span>&lt;<span class="title">CombineByteCharCodec</span>.<span class="title">ByteToCharDecoder</span>, <span class="title">CombineByteCharCodec</span>.<span class="title">CharToByteEncoder</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CombineByteCharCodec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="keyword">new</span> ByteToCharDecoder(), <span class="keyword">new</span> CharToByteEncoder());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解码器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ByteToCharDecoder</span> <span class="keyword">extends</span> <span class="title">ByteToMessageDecoder</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">decode</span><span class="params">(ChannelHandlerContext ctx, ByteBuf in, List&lt;Object&gt; out)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (in.readableBytes() &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">                out.add(in.readChar());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 编码器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">CharToByteEncoder</span> <span class="keyword">extends</span> <span class="title">MessageToByteEncoder</span>&lt;<span class="title">Character</span>&gt; </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">encode</span><span class="params">(ChannelHandlerContext ctx, Character msg, ByteBuf out)</span> </span>&#123;</span><br><span class="line">            out.writeChar(msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+      
     </div>
 
     
@@ -968,24 +896,8 @@
     
 
     <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Netty/" rel="tag"># Netty</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2021/12/25/hello-world/" rel="prev" title="Hello World">
-                  <i class="fa fa-chevron-left"></i> Hello World
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2022/02/01/MySQL%E7%AC%94%E8%AE%B0/" rel="next" title="MySQL笔记">
-                  MySQL笔记 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
+        <div class="post-eof"></div>
+      
     </footer>
   </article>
 </div>
@@ -993,7 +905,106 @@
 
 
 
+    
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://qianfugen.github.io/2021/12/25/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/35555226?v=4">
+      <meta itemprop="name" content="qianfg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qianfg的博客">
+      <meta itemprop="description" content="qianfg的个人博客，主要是Java学习笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | qianfg的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/12/25/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-12-25 00:00:00" itemprop="dateCreated datePublished" datetime="2021-12-25T00:00:00+08:00">2021-12-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-18 10:11:48" itemprop="dateModified" datetime="2023-10-18T10:11:48+08:00">2023-10-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Notes/" itemprop="url" rel="index"><span itemprop="name">Notes</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 </div>
   </main>
